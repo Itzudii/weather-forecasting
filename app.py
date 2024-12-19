@@ -2,11 +2,6 @@ from flask import *
 import requests
 import datetime
 
-timestamp = 1726636384
-
-dt_object = datetime.datetime.utcfromtimestamp(timestamp)
-
-print(dt_object.strftime("%Y-%m-%d %H:%M:%S"))
 apikey = '9b84156024a1157f9ceaf83477c026d7'
 
 class Weather:
@@ -28,7 +23,6 @@ class Weather:
         try:
             response = requests.get(api)
             data = response.json()
-            # print(data)
             lat = data[0]['lat']
             lon = data[0]['lon']
         except requests.exceptions.RequestException as e:
@@ -46,7 +40,6 @@ app = Flask(__name__)
 obj = Weather()
 @app.route('/')
 def home():
-    # return render_template('index.html',)
         data = obj.getweatherdata(city_name='indore',country_code='IN')
         
         dt  = obj.presencechecker( data,'dt')
@@ -143,27 +136,3 @@ def search():
 
 if __name__ == '__main__':
     app.run(debug=True)
-                            #    longitude=data['coord']['lon'],
-                            #    latitude=data['coord']['lat'],
-                            #    main=data['weather'][0]['main'],
-                            #    description=data['weather'][0]['description'],
-                            #    icon=data['weather'][0]['icon'],
-                            #    temp = data['main']['temp'],
-                            #    feels_like = data['main']['feels_like'],
-                            #    temp_min = data['main']['temp_min'],
-                            #    temp_max = data['main']['temp_max'],
-                            #    pressure = data['main']['pressure'],
-                            #    humidity = data['main']['humidity'],
-                            #    sea_level = data['main']['sea_level'],
-                            #    grnd_level = data['main']['grnd_level'],
-                            #    visibility = data['visibility'],
-                            #    speed = data['wind']['speed'],
-                            #    deg = data['wind']['deg'],
-                            # #    gust = data['wind']['gust'],
-                            # #    rain = data['rain']['1h'],
-                            #    clouds = data['clouds']['all'],
-                            #    dt = data['dt'],
-                            #    country = data['sys']['country'],
-                            #    sunrise = data['sys']['sunrise'],
-                            #    sunset = data['sys']['sunset'],
-                            #    cityname = data['name']
